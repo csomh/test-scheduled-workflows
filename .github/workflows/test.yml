@@ -1,0 +1,17 @@
+name: Test
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "32 16 * * *"
+  push:
+    branches:
+      - main
+      - stable
+jobs:
+  test:
+    if: github.repository_owner == "csomh"
+    steps:
+      - uses: actions/checkout@v3
+      - name: cat
+        run: |
+          cat file
