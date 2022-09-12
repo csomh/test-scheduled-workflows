@@ -2,27 +2,35 @@ name: Test
 on:
   workflow_dispatch:
   schedule:
-    - cron: '37 11 * * *'
-    - cron: '38 11 * * *'
+    - cron: '52 11 * * *'
   push:
     branches:
       - main
       - stable
 jobs:
-  test:
-    if: github.repository_owner == 'csomh'
+  triggered:
+    if: github.repository_owner == 'csomh' && github.event.schedule == null
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        if: github.event.schedule == '37 11 * * *'
-        with:
-          ref: main
+        if: github.event.schedule != null
+      - name: cat
+        run: |
+          cat file
+  scheduled:
+    if: github.repository_owner == 'csomh' && github.event.schedule != null
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          branch:
+            - main
+            - stable
+    steps:
       - uses: actions/checkout@v3
-        if: github.event.schedule == '38 11 * * *'
+        if: github.event.schedule != null
         with:
-          ref: stable
-      - uses: actions/checkout@v3
-        if: github.event.schedule == null
+          ref: {{ matrix.branch }}
       - name: cat
         run: |
           cat file
