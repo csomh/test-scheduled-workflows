@@ -2,8 +2,8 @@ name: Test
 on:
   workflow_dispatch:
   schedule:
-    - cron: '32 16 * * *'
-    - cron: '32 17 * * *'
+    - cron: '37 11 * * *'
+    - cron: '38 11 * * *'
   push:
     branches:
       - main
@@ -14,11 +14,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        if: github.event.schedule == '32 16 * * *'
+        if: github.event.schedule == '37 11 * * *'
         with:
           ref: main
       - uses: actions/checkout@v3
-        if: github.event.schedule == '32 17 * * *'
+        if: github.event.schedule == '38 11 * * *'
         with:
           ref: stable
       - uses: actions/checkout@v3
