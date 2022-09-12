@@ -10,6 +10,7 @@ on:
 jobs:
   test:
     if: github.repository_owner == "csomh"
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: cat
