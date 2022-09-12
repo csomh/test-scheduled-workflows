@@ -2,7 +2,7 @@ name: Test
 on:
   workflow_dispatch:
   schedule:
-    - cron: '54 11 * * *'
+    - cron: '55 11 * * *'
   push:
     branches:
       - main
@@ -13,7 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        if: github.event.schedule != null
       - name: cat
         run: |
           cat file
@@ -27,7 +26,6 @@ jobs:
           - stable
     steps:
       - uses: actions/checkout@v3
-        if: github.event.schedule != null
         with:
           ref: ${{ matrix.branch }}
       - name: cat
